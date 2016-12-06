@@ -36,13 +36,19 @@ $stmt->bind_param("ssis", $firstname, $lastname, $age, $email);
 
 if ($_SERVER["REQUEST_METHOD"] == "POST"){
   // set parameters and execute
-  $firstname =  $_POST["firstname"];
-  $lastname = $_POST["lastname"];
-  $age = $_POST["age"];
-  $email = $_POST["email"];
+  $firstname =  test_input($_POST["firstname"]);
+  $lastname = test_input($_POST["lastname"]);
+  $age = test_input($_POST["age"]);
+  $email = test_input($_POST["email"]);
   $stmt->execute();
 
   echo "New records created successfully <br>";
+}
+function test_input($data) {
+  $data = trim($data);
+  $data = stripslashes($data);
+  $data = htmlspecialchars($data);
+  return $data;
 }
 
 
